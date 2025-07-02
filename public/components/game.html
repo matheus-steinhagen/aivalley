@@ -1,11 +1,13 @@
 <template>
     <canvas id="aivalley"></canvas>
+    <div id="status-panel" style="margin-top:10px; font-family:monospace;"></div>
 </template>
 
 <script>
   import { Grid } from './project/Grid.js';
   import { MemoryAgent } from './project/MemoryAgent.js';
   import { render } from './project/Renderer.js';
+  import { updateStatus } from './project/StatusPanel.js';
 
   const grid = new Grid(20, 20, 32);
   const agent = new MemoryAgent(grid);
@@ -13,6 +15,7 @@
   function gameLoop() {
     agent.makeNextMove();
     render(grid, agent);
+    updateStatus(agent)
   }
 
   // ✅ Troque DOMContentLoaded por scripts:ready
