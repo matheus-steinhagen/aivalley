@@ -1,0 +1,47 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    text-decoration: none;
+}
+
+/* Estilo base para notas concluídas */
+.card.completed {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    /* background-color: #f8f9fa; */ /* Alternativa: fundo mais claro */
+    /* border-left: 4px solid #198754; */ /* Alternativa: borda verde Bootstrap */
+}
+
+/* Título, conteúdo e metadados com estilo "concluído" */
+.card.completed .card-title,
+.card.completed .card-text,
+.card.completed .post-meta {
+    text-decoration: line-through;
+    color: #6c757d; /* Bootstrap's text-secondary */
+}
+
+/* Ícone de lixeira suavizado */
+.card.completed i[data-icon="trash-2"] {
+    opacity: 0.5;
+}
+
+/* Alternativa: selo "Concluído" no canto superior */
+.card.completed::before {
+    content: "✔ Concluído";
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background-color: #198754; /* Bootstrap success */
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 0.3rem;
+    font-weight: 500;
+    /* Descomente para usar */
+    /* display: inline-block; */
+}
+
+.card i[data-icon]:hover{
+    cursor: pointer;
+}

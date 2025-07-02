@@ -1,0 +1,25 @@
+<template>
+    <canvas id="aivalley"></canvas>
+</template>
+
+<script>
+  import { Grid } from './project/Grid.js';
+  import { MemoryAgent } from './project/MemoryAgent.js';
+  import { render } from './project/Renderer.js';
+
+  const grid = new Grid(20, 20, 32);
+  const agent = new MemoryAgent(grid);
+
+  function gameLoop() {
+    agent.makeNextMove();
+    render(grid, agent);
+  }
+
+  // ✅ Troque DOMContentLoaded por scripts:ready
+  document.addEventListener('scripts:ready', () => {
+    setInterval(gameLoop, 500);
+  });
+
+  // ✅ Para o sistema saber que o script terminou
+  document.dispatchEvent(new CustomEvent('component:executed', { detail: 'game' }));
+</script>

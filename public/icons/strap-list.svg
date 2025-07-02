@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="feather feather-square"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="strap-list.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="17.666667"
+     inkscape:cx="13.160377"
+     inkscape:cy="12.735849"
+     inkscape:window-width="1920"
+     inkscape:window-height="1056"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <rect
+     x="3.0099645"
+     y="3"
+     width="18"
+     height="18"
+     rx="2"
+     ry="2"
+     id="rect1" />
+  <line
+     x1="3.7141583"
+     y1="9"
+     x2="20.305771"
+     y2="9"
+     id="line1"
+     style="stroke-width:2" />
+  <line
+     x1="3.7041941"
+     y1="15"
+     x2="20.295807"
+     y2="15"
+     id="line1-9"
+     style="stroke-width:2" />
+</svg>
