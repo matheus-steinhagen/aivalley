@@ -1,19 +1,22 @@
 import { Grid } from "./Grid";
-import { MemoryAgent } from "./MemoryAgent";
+import { Agent } from "./Agent";
 
-export function render(grid: Grid, agent: MemoryAgent) {
+export function render(grid:Grid, agent:Agent) {
+
+  //Identifica o canvas
   const canvas = document.getElementById("aivalley") as HTMLCanvasElement;
   if (!canvas) return;
 
+  //Aciona o pincel
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const { x: width, y: height } = grid.getCanvasDimensions();
+  const { x:width, y:height } = grid.getCanvasDimensions(); //Resgata as dimensões do canvas passadas no grid
 
   canvas.width = width;
   canvas.height = height;
 
-  ctx.clearRect(0, 0, width, height);
+  ctx.clearRect(0, 0, width, height); //Limpando o canvas
 
   //Desenhar linhas da grid
   ctx.strokeStyle = "#ccc";

@@ -9,14 +9,9 @@ export class Grid{
         this.cellSize = cellSize;
     }
 
-    isWithinBounds(x:number, y:number): boolean{
-        return(
-            x >= 0 &&
-            y >= 0 &&
-            x < this.x &&
-            y < this.y
-        );
-    }
+  //------------------------------
+  // GETTERS
+  //------------------------------
 
     getCellSize():number{
         return this.cellSize;
@@ -35,5 +30,34 @@ export class Grid{
 
     getY():number{
         return this.y
+    }
+
+  //------------------------------
+  // SETTERS
+  //------------------------------
+
+    isWithinBounds(x:number, y:number): boolean{
+        return(
+            x >= 0 &&
+            y >= 0 &&
+            x < this.x &&
+            y < this.y
+        );
+    }
+
+    isHome(x:number, y:number){
+        return x==0 && y==0;
+    }
+
+    isRestPoint(x:number, y:number){
+        return x==0 && y==0;
+    }
+
+    isWaterPoint(x:number, y:number){
+        return x==2 && y==2;
+    }
+
+    isFoodPoint(x:number, y:number){
+        return x==4 && y==4;
     }
 }

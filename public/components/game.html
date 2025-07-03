@@ -5,12 +5,12 @@
 
 <script>
   import { Grid } from './project/Grid.js';
-  import { MemoryAgent } from './project/MemoryAgent.js';
+  import { Agent } from './project/Agent.js';
   import { render } from './project/Renderer.js';
   import { updateStatus } from './project/StatusPanel.js';
 
-  const grid = new Grid(20, 20, 32);
-  const agent = new MemoryAgent(grid);
+  const grid = new Grid(5, 5, 32);
+  const agent = new Agent(grid,[2,3], [1000,1000,1000,1000,1000]);
 
   function gameLoop() {
     agent.makeNextMove();
