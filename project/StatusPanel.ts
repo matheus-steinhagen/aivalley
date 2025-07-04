@@ -2,7 +2,6 @@ import { Agent } from "./Agent";
 
 export function updateStatus(agent: Agent): void {
   const panel = document.getElementById("status-panel");
-  console.log("Importado");
   if (!panel) return;
 
   panel.innerHTML = `

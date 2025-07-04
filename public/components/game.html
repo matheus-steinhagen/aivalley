@@ -4,17 +4,19 @@
 </template>
 
 <script>
-  import { Grid } from './project/Grid.js';
+  import { World } from './project/World.js';
   import { Agent } from './project/Agent.js';
   import { render } from './project/Renderer.js';
   import { updateStatus } from './project/StatusPanel.js';
 
-  const grid = new Grid(5, 5, 32);
-  const agent = new Agent(grid,[2,3], [1000,1000,1000,1000,1000]);
+  const world = new World(10,10,32);
+  const agent = new Agent(world,[2,3], [1000,1000,1000,1000,1000]);
+  const agent2 = new Agent(world,[4,5], [1000,1000,1000,1000,1000])
 
   function gameLoop() {
-    agent.makeNextMove();
-    render(grid, agent);
+    if(agent.isAlive()) agent.makeNextMove();
+    if(agent2.isAlive()) agent2.makeNextMove();
+    render(world, [agent, agent2]);
     updateStatus(agent)
   }
 

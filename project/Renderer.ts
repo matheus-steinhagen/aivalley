@@ -1,7 +1,7 @@
-import { Grid } from "./Grid";
+import { World } from "./World";
 import { Agent } from "./Agent";
 
-export function render(grid:Grid, agent:Agent) {
+export function render(world:World, agents:Agent[]) {
 
   //Identifica o canvas
   const canvas = document.getElementById("aivalley") as HTMLCanvasElement;
@@ -11,35 +11,43 @@ export function render(grid:Grid, agent:Agent) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const { x:width, y:height } = grid.getCanvasDimensions(); //Resgata as dimensões do canvas passadas no grid
+  //Determinando o tamanho do Canvas
+  const cellSize = world.getCellSize();
+  canvas.width = world.getWidth() * cellSize;
+  canvas.height = world.getHeight() * cellSize;
 
-  canvas.width = width;
-  canvas.height = height;
+  ctx.clearRect(0, 0, canvas.width, canvas.height); //Limpando o canvas
 
-  ctx.clearRect(0, 0, width, height); //Limpando o canvas
-
-  //Desenhar linhas da grid
-  ctx.strokeStyle = "#ccc";
-  ctx.beginPath();
-
-  for (let x = 0; x <= grid.getX(); x++) {
-    const px = x * grid.getCellSize();
-    ctx.moveTo(px, 0);
-    ctx.lineTo(px, height);
+  //Cores por tipo
+  const typeColors: Record<string, string> = {
+    empty: "#fff",
+    trail: "#eee",
+    water: "aqua",
+    food: "tomato",
+    rest: "beige",
+    obstacle: "#555",
+    damage: "purple",
+    agent: "blue",
   }
 
-  for (let y = 0; y <= grid.getY(); y++) {
-    const py = y * grid.getCellSize();
-    ctx.moveTo(0, py);
-    ctx.lineTo(width, py);
-  }
+  for(let y = 0; y < world.getHeight(); y++){
+    for(let x = 0; x < world.getWidth(); x++){
+      const cell = world.getCell(x, y);
+      if(!cell) continue;
 
-  ctx.stroke();
+      const mainType = cell.types[cell.types.length -1] || "empty";
+      ctx.fillStyle = typeColors[mainType] || "#ccc";
+      ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+
+      ctx.strokeStyle = "#ccc";
+      ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+    }
+  }
 
   //Desenhar o agente
-  ctx.fillStyle = "blue";
-  const agentSize = grid.getCellSize();
-  const agentX = agent.getX() * agentSize;
-  const agentY = agent.getY() * agentSize;
-  ctx.fillRect(agentX, agentY, agentSize, agentSize);
+  ctx.fillStyle = typeColors["agent"];
+  for(const agent of agents){
+    ctx.fillRect(agent.getX() * cellSize, agent.getY() * cellSize, cellSize, cellSize);
+  }
+  
 }

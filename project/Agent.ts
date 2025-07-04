@@ -1,4 +1,5 @@
-import { Grid } from "./Grid";
+import { World } from "./World";
+import type { CellType } from "./World";
 
 export class Agent {
   // DIRECTION
@@ -7,7 +8,7 @@ export class Agent {
   private moves: number = 0;
   private lastDirection: string = "Nenhuma";
   private failedAttempts: number = 0;
-  private grid: Grid;
+  private world: World;
 
   //MEMORY
   private memory: { x: number; y: number }[] = [];
@@ -23,16 +24,10 @@ export class Agent {
 
   private need:number = 0;
   private actionName: string = "Nenhuma";
+  private alive:boolean = true;
 
-  //BATTLE STATUS
-  //private atack:number = 0;
-  //private defense:number = 0;
-  //private speed:number = 0;
-  //private special_at:number = 0;
-  //private special_df:number = 0;
-
-  constructor(grid: Grid, position:number[], maxStatus: number[]) {
-    this.grid = grid;
+  constructor(world: World, position:number[], maxStatus: number[]) {
+    this.world = world;
     [this.x, this.y] = [...position]; //Posição inicial
     this.maxStatus = maxStatus;
     [this.health, this.water, this.food, this.energy, this.mood] = [...maxStatus];
@@ -86,18 +81,27 @@ export class Agent {
     return this.actionName;
   }
 
+  public isAlive(): boolean {
+    return this.alive;
+  }
+
+  private hasTypeAtCurrentPosition(type:CellType):boolean{
+    const cell = this.world.getCell(this.x, this.y)
+    return !!cell && cell.types.includes(type)
+  }
+
   //Ambiente
   public isAtHome(): boolean {
-    return this.grid.isHome(this.x, this.y);
-  }
-  public isAtRestPoint(): boolean {
-    return this.grid.isRestPoint(this.x, this.y);
+    return this.hasTypeAtCurrentPosition("home")
   }
   public isAtWaterPoint(): boolean {
-    return this.grid.isWaterPoint(this.x, this.y);
+    return this.hasTypeAtCurrentPosition("water")
   }
   public isAtFoodPoint(): boolean {
-    return this.grid.isFoodPoint(this.x, this.y);
+    return this.hasTypeAtCurrentPosition("food")
+  }
+  public isAtRestPoint(): boolean {
+    return this.hasTypeAtCurrentPosition("rest")
   }
 
   private clampStats(): void {
@@ -123,7 +127,7 @@ export class Agent {
     return 3;
   }
 
-  public instinctiveNeeds(currentNeed: number):number {
+  private getUrgencyLevels():{id:number, ratio:number, urgency:number}[]{
     const [mh, mw, mf, me, mm] = this.maxStatus;
 
     const ratios = [
@@ -133,17 +137,22 @@ export class Agent {
       this.mood / mm,
     ];
 
-    const urgencies = ratios.map((ratio, i) => ({
+    return ratios.map((ratio, i) => ({
       id: i,
       ratio,
       urgency: this.getNeedUrgency(ratio),
-    }));
+    }));    
+  }
+
+  public instinctiveNeeds(currentNeed: number):number {
+
+    const urgencies = this.getUrgencyLevels();
 
     // Se ainda precisa continuar a necessidade anterior
     if (
-      currentNeed === 0 && ratios[0] < 0.95 && this.isAtWaterPoint()
-      || currentNeed === 1 && ratios[1] < 0.95 && this.isAtFoodPoint()
-      || currentNeed === 2 && ratios[2] < 0.95 && this.isAtRestPoint()
+      currentNeed === 0 && urgencies[0].ratio < 0.95 && this.isAtWaterPoint()
+      || currentNeed === 1 && urgencies[1].ratio < 0.95 && this.isAtFoodPoint()
+      || currentNeed === 2 && urgencies[2].ratio < 0.95 && this.isAtRestPoint()
     ) {
       return currentNeed;
     }
@@ -209,6 +218,9 @@ export class Agent {
     }
 
     this.clampStats();
+    this.applyNeglectPenalty();
+    
+    if(this.health <= 0) this.alive = false;
   }
 
   public walk(isAtHome: boolean): void {
@@ -220,8 +232,8 @@ export class Agent {
     } else {
       this.water -= 6;
       this.food -= 4;
-      this.energy -= 3;
-      this.mood -= 1;
+      this.energy -= 6;
+      this.mood -= 2;
     }
     this.actionName = "Andando";
 
@@ -248,13 +260,22 @@ export class Agent {
       const newY = this.y + directions[choice].dy;
 
       //Verificar disponibilidade da direção escolhida
-      if (!this.grid.isWithinBounds(newX, newY)) {
+      if (!this.world.isWithinBounds(newX, newY)) {
+        this.failedAttempts++;
+        continue;
+      }
+
+      const cell = this.world.getCell(newX, newY);
+      if(cell && cell.types.includes("obstacle")){
         this.failedAttempts++;
         continue;
       }
 
       this.x = newX;
       this.y = newY;
+
+      if(cell && cell.types.includes("damage")) this.health -= 10;
+
       this.lastDirection = this.directionName(directions[choice]);
       this.moves++;
       this.rememberPosition(this.x, this.y);
@@ -265,12 +286,14 @@ export class Agent {
 
   public rest(isAtHome: boolean): void {
     if (isAtHome) {
-      this.energy += 10;
+      this.health +=4
+      this.energy += 20;
       this.mood -= 1;
       this.food -= 1;
       this.water -= 2;
     } else {
-      this.energy += 5;
+      this.health +=2
+      this.energy += 10;
       this.mood -= 2;
       this.food -= 2;
       this.water -= 4;
@@ -280,26 +303,38 @@ export class Agent {
 
   public eat(isAtHome: boolean): void {
     if (isAtHome) {
-      this.food += 10;
+      this.health +=4
+      this.food += 20;
       this.energy += 2;
       this.mood += 2;
+
+      this.water -= 1;
     } else {
-      this.food += 5;
+      this.health +=2
+      this.food += 10;
       this.energy += 1;
       this.mood += 1;
+
+      this.water -= 1;
     }
     this.actionName = "Comendo";
   }
 
   public drink(isAtHome: boolean): void {
     if (isAtHome) {
-      this.water += 10;
+      this.health +=4
+      this.water += 20;
       this.energy += 2;
       this.mood += 2;
+
+      this.food -= 1;
     } else {
-      this.water += 5;
+      this.health +=2
+      this.water += 10;
       this.energy += 1;
       this.mood += 1;
+
+      this.food -= 1;
     }
     this.actionName = "Bebendo";
   }
@@ -316,5 +351,20 @@ export class Agent {
       this.energy -= 1;
       this.mood -= 2;
     }
+  }
+
+  public applyNeglectPenalty():void{
+    const [mh] = this.maxStatus;
+    const urgencies = this.getUrgencyLevels();
+
+    let damage = 0;
+
+    urgencies.forEach(u => {
+      if(u.urgency === 3) damage += 2;
+      else if(u.urgency === 2) damage += 1;
+    });
+
+    if(damage > 0) this.health -= damage;
+    if(this.health <= 0) this.health = 0;
   }
 }
