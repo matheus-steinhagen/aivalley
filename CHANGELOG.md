@@ -30,11 +30,9 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 - Ações visuais correspondentes à necessidade atual
 - Painel informativo com status do agente e ação atual
 - Valor máximo de status personalizado por agente
-- Decisões conscientes com base em necessidade (em vez de comportamento aleatório)
 - Sistema de ações instintivas com lógica consistente e expansível
 
 ### Modificado
-- Agente deixa de agir com base apenas na sorte e passa a tomar decisões com lógica
 - A ação “andar” agora consome recursos e não ocorre se o agente estiver saciando uma necessidade
 - Substituição do uso de strings por enums/números em propriedades de estado interno
 
@@ -45,7 +43,4 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 - Mapa com grid 10x10
 - Ponto inicial fixo do agente
 - Movimento aleatório com tentativa e erro
-- Sistema de energia, humor, fome e sede
-- Redução de status ao andar ou ficar parado
-- Locais fixos para saciar fome, sede e energia
 - Painel de visualização básica dos status
