@@ -1,64 +1,127 @@
 # 🧠 AI Valley
 
-> ✅ **Versão 1.0 concluída e estável**
-> 🌱 Para versões futuras ou experimentais, utilize a branch `v2`.
+> ✅ **Versão 3.0 concluída e estável**  
+> 🧪 Versões anteriores disponíveis nas branches `v1` e `v2`
 
-Simulação visual de agentes inteligentes com memória curta em um mundo 2D baseado em grid.
+Simulação visual de agentes inteligentes com memória, necessidades básicas e interação em um mundo dinâmico 2D.
+
+---
 
 ## 🎯 Propósito
-**AI Valley** é um laboratório pessoal — mas feito com estrutura e propósito profissional.
-Criado com foco em:
 
-- 🏗️ Arquitetura de Software moderna
-- 🧠 Inteligência Artificial aplicada de forma didática
-- 🛠️ Engenharia com JavaScript, TypeScript, Node e JSON
-- 🧪 Construção de um **framework SPA autoral** e reutilizável
+**AI Valley** é um laboratório pessoal com estrutura profissional, criado para:
+
+- 🏗️ Explorar **Arquitetura de Software escalável**
+- 🧠 Estudar **Inteligência Artificial em simulações**
+- 💻 Aprimorar habilidades com **JavaScript, TypeScript, JSON**
+- 🔁 Construir um **framework SPA autoral** reutilizável
+
+---
 
 ## ⚙️ Framework SPA — `steinFrontWorks.js v0.1`
-Este projeto utiliza o **`steinFrontWorks.js`**, um **Single Page Application Framework** desenvolvido do zero por Matheus Steinhagen.
 
-### 🔧 Principais características:
+O projeto utiliza o `steinFrontWorks.js`, um **Single Page Application Framework** criado do zero.
 
+### 🔧 Características principais:
 - 🚦 Roteador autoral (`router.ts`)
-- 🧩 Carregamento dinâmico de **layouts** e **componentes HTML**
-- 🔁 Injeção automática de templates e scripts (via ES Modules)
-- 📁 Separação limpa entre **engine do app** (`bridge/`) e **lógica do projeto** (`project/`)
-- 💡 Base ideal para evoluir em múltiplas direções, de jogos a dashboards
+- 🧩 Carregamento dinâmico de templates HTML
+- 🔁 Injeção de scripts por componente
+- 📁 Separação clara entre **engine** (`bridge/`) e **domínio do projeto** (`project/`)
 
-## 🧠 Agente Inteligente
+---
 
-### `MemoryAgent.ts`
-- Guarda posição atual no grid (`x`, `y`)
-- Move-se aleatoriamente em 4 direções (↑ ↓ ← →)
-- Evita movimentos repetidos (memória curta)
-- Verifica limites do grid antes de se mover
+## 🧠 Agentes Inteligentes
 
-## 🌍 Mundo 2D
+### `Agent.ts`
 
-### `Grid.ts`
-- Define um mundo com 10x10 células de 32px
-- Calcula dimensões do canvas automaticamente
-- Fornece métodos para validar posições
+Cada agente possui:
 
-## 🖼️ Renderização com Canvas
+- **Necessidades básicas**: sede, fome, energia, humor
+- **Vida (`health`)**: reduzida por negligência ou armadilhas
+- **Movimento autônomo** com decisões instintivas
 
-### `Renderer.ts`
-- Usa a API Canvas 2D do HTML5
-- Desenha o agente como um quadrado azul
-- Atualiza a visualização a cada movimento
+---
 
-## 🔁 Game Loop
+## 🌍 Mundo 2D Dinâmico
 
-- Executado com `setInterval` a cada 500ms
-- O agente realiza uma ação por ciclo
-- O canvas é redesenhado com base na nova posição
+### `World.ts`
 
-> ⏳ O loop inicia somente após o carregamento completo dos scripts (`scripts:ready`), garantindo estabilidade e sincronização.
+- Gera mapa com **células aleatórias** a cada nova partida
+- Cada célula pode conter:
+  - 🟦 Água
+  - 🍎 Comida
+  - 🛏️ Descanso
+  - 💀 Armadilhas (causam dano)
+  - ⛔ Obstáculos (impassáveis)
+- Gerador garante que itens não apareçam sobre obstáculos
 
-## 📦 Requisitos
+---
 
-- Node.js v18 ou superior
-- Navegador moderno com suporte a ES Modules
+## 📊 Sistema de Necessidades
+
+- Urgência calculada por porcentagem da necessidade
+- Necessidades críticas ou zeradas causam **dano por negligência**
+- HUD exibe status do agente em tempo real:
+  - Vida, sede, fome, energia, humor, necessidade atual
+
+---
+
+## ☠️ Morte e Reinício
+
+- Toda partida é única: novo mundo, novos desafios
+
+---
+
+## 👥 Multi-agente
+
+- Até dois agentes convivendo no mesmo mundo
+- Cada um com autonomia completa
+
+---
+
+## 🧪 Painel inferior
+
+- Exibe:
+  - Status do agente
+  - Necessidade ativa
+  - Última direção
+
+---
+
+## 🌀 Game Loop
+
+- Executado a cada 500ms
+- Cada ciclo:
+  1. Agente escolhe uma ação com base em suas urgências
+  2. Ação afeta seus status
+  3. Painel é atualizado
+  4. Mundo é re-renderizado no canvas
+
+---
+
+## ✅ Entregas concluídas — v3.0
+
+- ✅ Mundo aleatório e persistente
+- ✅ Agentes com decisão instintiva
+- ✅ Obstáculos e armadilhas funcionais
+- ✅ Sistema de dano por negligência calibrado
+- ✅ Loop de morte funcional
+- ✅ Painel de status reativo
+
+---
+
+## 🧭 Roteiro Futuro (v4+)
+
+- [ ] Separação completa entre **ambiente**, **recursos**, **agentes** e **ações**
+- [ ] Dados de tipos (`food`, `water`, `rest`, etc.) em arquivos `.json`
+- [ ] Células do mapa visuais com sprites distintos
+- [ ] Sistema de coleta de **itens** com inventário
+- [ ] Sistema de **missões internas e desejos espontâneos**
+- [ ] Sistema de **golpes**, evolução e combate entre agentes
+- [ ] Persistência local (`localStorage`) ou sincronização com servidor
+- [ ] Suporte a múltiplos mapas (biomas diferentes)
+
+---
 
 ## 🚀 Como Executar
 
@@ -68,42 +131,42 @@ cd ai-valley
 npm install
 npm run dev
 ```
-Acesse em http://localhost:5173 (ou a porta configurada).
+Acesse em http://localhost:5173
 
-## ✅ Primeira Entrega — Checkpoint Concluído
-- ✅ Grid funcional com agente móvel
-- ✅ Renderização 2D estável
-- ✅ Lógica de movimentação com memória
-- ✅ Estrutura modular e pronta para expansão
-- ✅ Documentação completa
-- ✅ Framework SPA autoral funcionando
+---
 
-## 🧭 Roteiro Futuro - próximas versões
-- 🔲 Visualização das linhas do grid
-- 🧱 Obstáculos no mundo
-- 🧠 Múltiplos agentes com comportamentos distintos
-- 🎯 Objetivos no mapa (coletar, alcançar, evitar)
-- 📚 Aprendizado por reforço simples (Q-Learning)
-- ⏯️ Interface de controle: start / pause / reset
-- 🧊 Animações suaves e renderização otimizada
+## 📦 Requisitos
+
+- Node.js v18 ou superior
+- Navegador moderno com suporte a ES Modules
+
+---
 
 ## 🧠 Dica para Contribuintes
-Você pode clonar a branch main (v1.0) e criar sua própria linha evolutiva!
-> Em breve: arquivo CONTRIBUTING.md com:
-> 1. Como rodar o projeto
-> 2. Como adicionar agentes, regras, componentes
-> 3. Regras de estilo e arquitetura
+
+Você pode clonar a branch `main` (v3.0) e iniciar sua própria linha de evolução!
+
+Se preferir v2.0 e v1.0 também disponíveis
+
+> Em breve: `CONTRIBUTING.md` com:
+> - Regras de estilo e arquitetura
+> - Como adicionar novos tipos de células
+> - Como criar novos agentes e comportamentos
+
+---
 
 ## 👨‍💻 Autor
-**Matheus Steinhagen**
+
+**Matheus Steinhagen**  
 Desenvolvedor autodidata com foco em:
+
 - 🧱 Arquitetura de Software
 - 🧠 Inteligência Artificial Aplicada
-- 🔐 Cibersegurança
+- 🔐 Cibersegurança e minimalismo digital
+
+---
 
 ## 📄 Licença
-MIT — Este projeto é livre para estudo, uso e modificação.
-Créditos são bem-vindos. 🤝
 
-## 💬 Notas Finais
-Se você também está estudando IA, arquitetura de software ou quer aprender a programar jogos com JS moderno, este projeto foi feito para ser um ponto de partida — claro, modular e inspirador.
+MIT — Este projeto é livre para estudo, uso e modificação.  
+**Créditos são sempre bem-vindos!**

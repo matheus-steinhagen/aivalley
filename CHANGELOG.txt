@@ -2,7 +2,29 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 
 ---
 
-## [2.0.0] - 2025-07-03
+## [v3.0] - 2025-07-04
+
+### Adicionado
+- Sistema de **dano por negligência** com base em urgência das necessidades
+- Morte por negligência
+- Segundo agente com movimentação independente
+- Obstáculos no mapa (bloqueiam movimentação)
+- Células de dano (atravessáveis, causam dano)
+- Painel lateral exibe status em tempo real
+- Novo sistema visual de renderização para tipos de célula
+
+### Corrigido
+- Agente não ignora mais obstáculos ao caminhar
+- Dano de célula "damage" agora é aplicado corretamente
+
+### Alterado
+- Reorganização dos arquivos: `Grid.ts` e `MemoryAgent.ts` foram removidos, substituídos por estrutura mais consolidada
+- Substituição do antigo mundo por nova classe `World` com geração procedural
+- Refatoração interna do agente para maior clareza e separação de responsabilidades
+
+---
+
+## [2.0] - 2025-07-03
 
 ### Adicionado
 - Sistema de necessidades com níveis de urgência (Saciado, Moderado, Baixo, Crítico)
@@ -20,7 +42,7 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 
 ---
 
-## [1.0.0] - 2025-07-02
+## [1.0] - 2025-07-02
 
 ### Adicionado
 - Mapa com grid 10x10
