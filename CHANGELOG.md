@@ -1,6 +1,5 @@
 Todas as alterações importantes deste projeto serão documentadas aqui.
 
----
 
 ## [v3.0] - 2025-07-04
 
@@ -22,7 +21,6 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 - Substituição do antigo mundo por nova classe `World` com geração procedural
 - Refatoração interna do agente para maior clareza e separação de responsabilidades
 
----
 
 ## [2.0] - 2025-07-03
 
@@ -40,7 +38,6 @@ Todas as alterações importantes deste projeto serão documentadas aqui.
 - A ação “andar” agora consome recursos e não ocorre se o agente estiver saciando uma necessidade
 - Substituição do uso de strings por enums/números em propriedades de estado interno
 
----
 
 ## [1.0] - 2025-07-02
 
