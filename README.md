@@ -5,7 +5,6 @@
 
 Simulação visual de agentes inteligentes com memória, necessidades básicas e interação em um mundo dinâmico 2D.
 
----
 
 ## 🎯 Propósito
 
@@ -16,7 +15,6 @@ Simulação visual de agentes inteligentes com memória, necessidades básicas e
 - 💻 Aprimorar habilidades com **JavaScript, TypeScript, JSON**
 - 🔁 Construir um **framework SPA autoral** reutilizável
 
----
 
 ## ⚙️ Framework SPA — `steinFrontWorks.js v0.1`
 
@@ -28,7 +26,6 @@ O projeto utiliza o `steinFrontWorks.js`, um **Single Page Application Framework
 - 🔁 Injeção de scripts por componente
 - 📁 Separação clara entre **engine** (`bridge/`) e **domínio do projeto** (`project/`)
 
----
 
 ## 🧠 Agentes Inteligentes
 
@@ -40,7 +37,6 @@ Cada agente possui:
 - **Vida (`health`)**: reduzida por negligência ou armadilhas
 - **Movimento autônomo** com decisões instintivas
 
----
 
 ## 🌍 Mundo 2D Dinâmico
 
@@ -55,7 +51,6 @@ Cada agente possui:
   - ⛔ Obstáculos (impassáveis)
 - Gerador garante que itens não apareçam sobre obstáculos
 
----
 
 ## 📊 Sistema de Necessidades
 
@@ -64,20 +59,17 @@ Cada agente possui:
 - HUD exibe status do agente em tempo real:
   - Vida, sede, fome, energia, humor, necessidade atual
 
----
 
 ## ☠️ Morte e Reinício
 
 - Toda partida é única: novo mundo, novos desafios
 
----
 
 ## 👥 Multi-agente
 
 - Até dois agentes convivendo no mesmo mundo
 - Cada um com autonomia completa
 
----
 
 ## 🧪 Painel inferior
 
@@ -86,7 +78,6 @@ Cada agente possui:
   - Necessidade ativa
   - Última direção
 
----
 
 ## 🌀 Game Loop
 
@@ -97,7 +88,6 @@ Cada agente possui:
   3. Painel é atualizado
   4. Mundo é re-renderizado no canvas
 
----
 
 ## ✅ Entregas concluídas — v3.0
 
@@ -108,7 +98,6 @@ Cada agente possui:
 - ✅ Loop de morte funcional
 - ✅ Painel de status reativo
 
----
 
 ## 🧭 Roteiro Futuro (v4+)
 
@@ -121,7 +110,6 @@ Cada agente possui:
 - [ ] Persistência local (`localStorage`) ou sincronização com servidor
 - [ ] Suporte a múltiplos mapas (biomas diferentes)
 
----
 
 ## 🚀 Como Executar
 
@@ -133,14 +121,12 @@ npm run dev
 ```
 Acesse em http://localhost:5173
 
----
 
 ## 📦 Requisitos
 
 - Node.js v18 ou superior
 - Navegador moderno com suporte a ES Modules
 
----
 
 ## 🧠 Dica para Contribuintes
 
@@ -153,7 +139,6 @@ Se preferir v2.0 e v1.0 também disponíveis
 > - Como adicionar novos tipos de células
 > - Como criar novos agentes e comportamentos
 
----
 
 ## 👨‍💻 Autor
 
@@ -164,7 +149,6 @@ Desenvolvedor autodidata com foco em:
 - 🧠 Inteligência Artificial Aplicada
 - 🔐 Cibersegurança e minimalismo digital
 
----
 
 ## 📄 Licença
 
